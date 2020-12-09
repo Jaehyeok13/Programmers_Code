@@ -13,8 +13,7 @@ public class person {
 		this.name = name;
 	}
 	
-	@Override
-	public String toString() {
+	public String inform() {
 		return "참가자 명 : " + name;
 	}
 }
