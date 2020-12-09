@@ -16,6 +16,20 @@ public class UnfinishedController {
 		}
 		return num;
 	}
+	
+	// 새참가자 등록
+	public void insertParticipant(String name) {
+		p[exisParticipantNum()] = new person(name);
+	}
+	
+	// 참가자 목록 출력
+	public void listParticipant() {
+		System.out.println("\n===== 참가자 명단 =====");
+		for(int i = 0; i < exisParticipantNum(); i++) {
+			System.out.println(p[i].inform());
+		}
+		System.out.println();
+	}
 }
 
 

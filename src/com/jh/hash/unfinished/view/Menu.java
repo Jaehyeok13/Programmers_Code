@@ -8,6 +8,7 @@ import com.jh.hash.unfinished.controller.UnfinishedController;
 public class Menu {
 	Scanner sc = new Scanner(System.in);
 	UnfinishedController uc = new UnfinishedController();
+
 	public void Participant() {
 		// 수많은 마라톤 선수들이 마라톤에 참여하였습니다. 단 한 명의 선수를 제외하고는 모든 선수가 마라톤을 
 		// 완주하엿습니다.
@@ -38,24 +39,69 @@ public class Menu {
 		예제 #3
 		mislav는 참여자 명단에는 두 명이 있지만, 완주자 명단에는 한 명밖에 없기 때문에 한명은 완주하지 못했습니다.
 		 */
-
 		boolean key = false;
-		int participantCount = uc.exisParticipantNum(); // 현재 참가자 수가 0인지 아닌지 판단한다.
-		while(!key) {
-				System.out.printf("참가자 최대 인원수는 %2d 입니다.\n",UnfinishedController.SIZE);
+		try {
+			while (!key) {
+				int participantCount = uc.exisParticipantNum(); // 현재 참가자 수가 0인지 아닌지 판단한다.
+				System.out.printf("참가자 최대 인원수는 %2d 입니다.\n", UnfinishedController.SIZE);
 				System.out.println("현재 참가자 수는 : " + participantCount + " 명 입니다.");
-				if(participantCount < 10) {
+				if (participantCount < 10) {
 					System.out.println("1. 참가자 등록");
-				}else {
+				} else {
 					System.out.println("10명의 참가자 등록 완료");
 				}
 				System.out.println("2. 참가자 목록");
-				System.out.println("3. 참가자 삭제");
-				System.out.println("");
-				key = true;
-				
+				System.out.println("3. 참가자 정보 수정");
+				System.out.println("4. 참가자 삭제");
+				if (participantCount > 1) {
+					System.out.println("5. 참가 완료(한번만 수행)");
+				}
+				System.out.print("메뉴 번호 선택 : ");
+				int num = sc.nextInt();
+
+				switch (num) {
+				case 1:	insertParticipant(); break;
+				case 2: listParticipant(); break;
+				case 3: updateParticipant(); break;
+				case 4: deleteParticipant(); break;
+				case 5: presentParticipant(); key = true; break;
+				default:
+					System.out.println("메뉴 번호를 잘못 입력 하셨습니다. 다시 입력 해주세요.");
+				}
+			}
+		} catch (Exception e) {
+			System.out.println("숫자로 다시 입력해주세요.");
 		}
-		
+	}
+	
+	//	새 참가자 등록
+	public void insertParticipant() {
+		System.out.println("\n새 참가자 등록합니다.");
+		System.out.print("참가자 이름을 입력 해주세요 : ");
+		String name = sc.next();
+		uc.insertParticipant(name);
+		System.out.println();
+	}
+
+	// 참자가 목록 조회
+	public void listParticipant() {
+		uc.listParticipant();
+	}
+
+	// 참가자 정보 수정
+	public void updateParticipant() {
+
+	}
+	
+	// 참가자 삭제
+	public void deleteParticipant() {
+
+	}
+	
+	// 참가자 목록 제출
+	public void presentParticipant() {
+
+	}
 //		String participantList[]  = new String[UnfinishedController.SIZE];
 //		System.out.println("=== 참가자 명단 ===");
 //		
@@ -85,6 +131,4 @@ public class Menu {
 //		
 //		
 		
-		
-	}
 }
