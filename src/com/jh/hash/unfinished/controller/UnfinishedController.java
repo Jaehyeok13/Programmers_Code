@@ -17,6 +17,7 @@ public class UnfinishedController {
 		return num;
 	}
 	
+	
 	// 새참가자 등록
 	public void insertParticipant(String name) {
 		p[exisParticipantNum()] = new person(name, exisParticipantNum()+1);
