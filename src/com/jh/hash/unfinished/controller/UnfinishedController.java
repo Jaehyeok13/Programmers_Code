@@ -19,7 +19,8 @@ public class UnfinishedController {
 	
 	// 새참가자 등록
 	public void insertParticipant(String name) {
-		p[exisParticipantNum()] = new person(name);
+		p[exisParticipantNum()] = new person(name, exisParticipantNum()+1);
+		System.out.println(name + "명 으로 등록돼었습니다.");
 	}
 	
 	// 참가자 목록 출력
@@ -28,8 +29,20 @@ public class UnfinishedController {
 		for(int i = 0; i < exisParticipantNum(); i++) {
 			System.out.println(p[i].inform());
 		}
-		System.out.println();
+		System.out.print("====================\n\n");
 	}
+	
+	// 참가자 정보 확인 한다.
+	public boolean updateParticipant(int num,String name) {
+		boolean key = false;
+		for (int i = 0; i < exisParticipantNum(); i++) {
+			if(p[i].getPerson().equals(name) && p[i].getNumber() == num) {
+				key = true;
+			}
+		}
+		return key;
+	}
+
 }
 
 

@@ -40,9 +40,10 @@ public class Menu {
 		mislav는 참여자 명단에는 두 명이 있지만, 완주자 명단에는 한 명밖에 없기 때문에 한명은 완주하지 못했습니다.
 		 */
 		boolean key = false;
+		int participantCount = 0;
 		try {
 			while (!key) {
-				int participantCount = uc.exisParticipantNum(); // 현재 참가자 수가 0인지 아닌지 판단한다.
+				participantCount  = uc.exisParticipantNum(); // 현재 참가자 수가 0인지 아닌지 판단한다.
 				System.out.printf("참가자 최대 인원수는 %2d 입니다.\n", UnfinishedController.SIZE);
 				System.out.println("현재 참가자 수는 : " + participantCount + " 명 입니다.");
 				if (participantCount < 10) {
@@ -61,8 +62,8 @@ public class Menu {
 
 				switch (num) {
 				case 1:	insertParticipant(); break;
-				case 2: listParticipant(); break;
-				case 3: updateParticipant(); break;
+				case 2: listParticipant(participantCount); break;
+				case 3: updateParticipant(participantCount); break;
 				case 4: deleteParticipant(); break;
 				case 5: presentParticipant(); key = true; break;
 				default:
@@ -84,13 +85,35 @@ public class Menu {
 	}
 
 	// 참자가 목록 조회
-	public void listParticipant() {
-		uc.listParticipant();
+	public void listParticipant(int participantCount) {
+		if(participantCount != 0) {
+			uc.listParticipant();
+		}else {
+			System.out.println("\n참가자가 없습니다.\n");
+		}
 	}
 
 	// 참가자 정보 수정
-	public void updateParticipant() {
-
+	public void updateParticipant(int participantCount) {
+		System.out.println();
+		if(participantCount == 0) {
+			System.out.println("정보를 변경할수 있는 참가자가 존재 하지 않습니다.\n");
+		}else {
+			System.out.print("참가번호 : ");
+			int num = sc.nextInt();
+			
+			System.out.print("참가자 명 : ");
+			String name = sc.next();
+			
+			if(!uc.updateParticipant(num,name)) {
+				System.out.println("입력한 정보와 일치하는 참가자가 없습니다. 다시 확인해주세요.\n");
+			}else {
+				System.out.print("변경할 참가자 명을 입력 해주세요 : ");
+				
+			}
+			
+		}
+		
 	}
 	
 	// 참가자 삭제
