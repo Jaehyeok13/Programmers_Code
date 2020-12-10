@@ -41,8 +41,9 @@ public class Menu {
 		 */
 		boolean key = false;
 		int participantCount = 0;
-		try {
+		
 			while (!key) {
+				
 				participantCount  = uc.exisParticipantNum(); // 현재 참가자 수가 0인지 아닌지 판단한다.
 				System.out.printf("참가자 최대 인원수는 %2d 입니다.\n", UnfinishedController.SIZE);
 				System.out.println("현재 참가자 수는 : " + participantCount + " 명 입니다.");
@@ -52,26 +53,30 @@ public class Menu {
 					System.out.println("10명의 참가자 등록 완료");
 				}
 				System.out.println("2. 참가자 목록");
-				System.out.println("3. 참가자 정보 수정");
-				System.out.println("4. 참가자 삭제");
+				if(participantCount > 0) {
+					System.out.println("3. 참가자 정보 수정");
+					System.out.println("4. 참가자 삭제");
+				}
 				if (participantCount > 1) {
 					System.out.println("5. 참가 완료(한번만 수행)");
 				}
+				System.out.println("9. 종료");
 				System.out.print("메뉴 번호 선택 : ");
-				int num = sc.nextInt();
-
-				switch (num) {
-				case 1:	insertParticipant(); break;
-				case 2: listParticipant(participantCount); break;
-				case 3: updateParticipant(participantCount); break;
-				case 4: deleteParticipant(); break;
-				case 5: presentParticipant(); key = true; break;
-				default:
-					System.out.println("메뉴 번호를 잘못 입력 하셨습니다. 다시 입력 해주세요.");
+				try {
+					int num = Integer.parseInt(sc.nextLine());
+					switch (num) {
+						case 1:	insertParticipant(); break;
+						case 2: listParticipant(participantCount); break;
+						case 3: updateParticipant(); break;
+						case 4: deleteParticipant(); break;
+						case 5: presentParticipant();  break;
+						case 9: System.out.println("프로그램 종료 합니다."); key = true;  sc.close(); break;
+						default:
+							System.out.println("메뉴 번호를 잘못 입력 하셨습니다. 다시 입력 해주세요.");
+					}
+				} catch (Exception e) {
+					System.out.println("숫자로 다시 입력해주세요.\n");
 				}
-			}
-		} catch (Exception e) {
-			System.out.println("숫자로 다시 입력해주세요.");
 		}
 	}
 	
@@ -94,33 +99,107 @@ public class Menu {
 	}
 
 	// 참가자 정보 수정
-	public void updateParticipant(int participantCount) {
+	public void updateParticipant() {
 		System.out.println();
-		if(participantCount == 0) {
-			System.out.println("정보를 변경할수 있는 참가자가 존재 하지 않습니다.\n");
-		}else {
+		String name = "";
+		boolean key = false;
+		while (!key) {
+			try {
+
+			System.out.println("===== 참가자 정보 수정 =====\n0번 메인 메뉴 이동");
 			System.out.print("참가번호 : ");
-			int num = sc.nextInt();
-			
-			System.out.print("참가자 명 : ");
-			String name = sc.next();
-			
-			if(!uc.updateParticipant(num,name)) {
-				System.out.println("입력한 정보와 일치하는 참가자가 없습니다. 다시 확인해주세요.\n");
-			}else {
-				System.out.print("변경할 참가자 명을 입력 해주세요 : ");
-				
+				int num = Integer.parseInt(sc.nextLine());
+				if (num == 0) {
+					System.out.println("메인으로 돌아 갑니다.\n");
+					key = true;
+					break;
+				}
+
+				System.out.print("참가자 명 : ");
+				name = sc.nextLine();
+
+				if (!uc.searchParticipant(num, name)) {
+					System.out.println("입력한 정보와 일치하는 참가자가 없습니다. 다시 확인해주세요.\n");
+				} else {
+					System.out.print("변경할 참가자 명을 입력 해주세요 : ");
+					name = sc.nextLine();
+					uc.updateParticipant(num, name);
+					key = true;
+				}
+			} catch (Exception e) {
+				System.out.println("숫자로 다시 입력 해주세요.\n");
 			}
-			
 		}
-		
 	}
 	
 	// 참가자 삭제
 	public void deleteParticipant() {
+		// 전체 삭제 또는 일부 삭제
+		boolean key = false;
+		while(!key) {
+			try {
+				System.out.println("===== 참가자 삭제 =====");
+				System.out.println("1.특정 참가자 삭제하기");
+				System.out.println("2.모든 참가자 삭제하기");
+				System.out.println("9.메인으로 돌아가기");
+				System.out.print("메뉴 번호 : ");
+				int num = Integer.parseInt(sc.nextLine());
+				switch(num) {
+					case 1:  deleteOne(); break;
+					case 2: deleteAll(); break;
+					case 9: System.out.println("메인으로 돌아갑니다."); key = true; break;
+					default : System.out.println("잘못 입력 하셨습니다. 다시 입력 해주세요.\n");
+				}
+				
+			}catch(Exception e) {
+				System.out.println("숫자로 다시 입력 해주세요.");
+			}
+		}
+		
+		
+		
+	}
+	public void deleteOne() {
+		System.out.println();
+		String name = "";
+		int num = 0;
+		boolean key = false;
+		while (!key) {
+			try {
+				System.out.println("===== 참가자 삭제 =====\n0번 메인 메뉴 이동");
+				System.out.print("참가번호 : ");
+				num = Integer.parseInt(sc.nextLine());
 
+				if (num == 0) {
+					System.out.println("메인으로 돌아 갑니다.\n");
+					key = true;
+					break;
+				}
+
+				System.out.print("참가자 명 : ");
+				name = sc.nextLine();
+
+				if (!uc.searchParticipant(num, name)) {
+					System.out.println("입력한 정보와 일치하는 참가자가 없습니다. 다시 확인해주세요.\n");
+				} else {
+					System.out.print("정말로 삭제 하시겠습니까 ?(Y/N) : ");
+					char answer = sc.next().toUpperCase().charAt(0);
+					sc.nextLine();
+					if (answer == 'Y') {
+						uc.deleteParticipant(num,name);
+					}
+					key = true;
+				}
+			} catch (Exception e) {
+				System.out.print("숫자로 다시 입력 해주세요.\n");
+			}
+		}
 	}
 	
+	
+	public void deleteAll() {
+		
+	}
 	// 참가자 목록 제출
 	public void presentParticipant() {
 
