@@ -1,61 +1,88 @@
 package com.jh.hash.unfinished.controller;
 
-import com.jh.hash.unfinished.model.vo.person;
+import com.jh.hash.unfinished.model.vo.Person;
 
 public class UnfinishedController {
-	public static final int SIZE = 10;
-	person p[] = new person[SIZE];
-	
-	// 현재  참가자 수 가져오기
-	public int  exisParticipantNum() {
-		int num = 0;
-		
-		for(int i = 0; i < p.length; i++) {
-			if(p[i] != null) 
-				num += 1;
+    public static final int SIZE = 10;
+    Person p[] = new Person[SIZE];
+
+    // 현재 참가자 수 가져오기
+    public int exisParticipantNum() {
+	int num = 0;
+
+	for (int i = 0; i < p.length; i++) {
+	    if (p[i] != null)
+		num += 1;
+	}
+	return num;
+    }
+
+    // 새참가자 등록
+    public void insertParticipant(String name) {
+	int num = 0;
+	if(exisParticipantNum() < 0) {
+	    for(int i = 0; i < exisParticipantNum(); i++) {
+		for(int j = 0; j < i; j++) {
+		    num = ((int)(Math.random() * 99999) + 1);
+		    if(p[i].getNumber() == num) {
+			j--;
+			break;
+		    }
 		}
-		return num;
+	    }
+	}else {
+	    num = (int)(Math.random() * 99999) + 1;
 	}
-	
-	
-	// 새참가자 등록
-	public void insertParticipant(String name) {
-		p[exisParticipantNum()] = new person(name, exisParticipantNum()+1);
-		System.out.println(name + "참가자 등록됐습니다.");
+	p[exisParticipantNum()] = new Person(name, num);
+	System.out.println(name + "님의 참가 번호는 '" + num +"'입니다.");
+    }
+
+    // 참가자 목록 출력
+    public void listParticipant() {
+	for (int i = 0; i < exisParticipantNum(); i++) {
+	    System.out.println(p[i].inform());
 	}
-	
-	// 참가자 목록 출력
-	public void listParticipant() {
-		System.out.println("\n===== 참가자 명단 =====");
-		for(int i = 0; i < exisParticipantNum(); i++) {
-			System.out.println(p[i].inform());
-		}
-		System.out.print("====================\n\n");
+    }
+
+    // 참가자 정보 확인
+  /*
+    public boolean searchParticipant(int num, String name) {
+	boolean key = false;
+	for (int i = 0; i < exisParticipantNum(); i++) {
+	    if (p[i].getPerson().equals(name) && p[i].getNumber() == num) {
+		key = true;
+	    }
 	}
-	
-	// 참가자 정보 확인
-	public boolean searchParticipant(int num, String name) {
-		boolean key = false;
-		for (int i = 0; i < exisParticipantNum(); i++) {
-			if (p[i].getPerson().equals(name) && p[i].getNumber() == num) {
-				key = true;
-			}
-		}
-		return key;
+	return key;
+    }
+
+    // 참가자 정보 수정
+    public void updateParticipant(int num, String name) {
+	p[num].setPerson(name);
+    }
+    */
+    
+    // 참가자 정보 확인
+    public Person[] searchParticipant(int num, String name) {
+	Person[] p = new Person[exisParticipantNum()];
+	for(int i = 0; i < p.length; i++) {
+	    
 	}
-	
-	// 참가자 정보 수정
-	public void updateParticipant(int num,String name) {
-		p[num-1].setPerson(name);
-		System.out.println("참가자 정보 수정이 완료 돼었습니다.\n");
+	return p;
+    }
+    // 참가자 정보 수정
+    
+    // 참가자 정보 삭제
+    public void deleteParticipant(int num, String name) {
+	p[num] = new Person();
+	for(int i = num; i < exisParticipantNum() ; i++) {
+	    p[i] = p[i+1];
 	}
-	
-	public void deleteParticipant(int num, String name) {
-		p[num-1] = new person();
-		System.out.println("참가 신청이 정상적으로 처리 돼었습니다.");
-	}
+    }
+
+    public void deleteParticipant() {
+	p = new Person[SIZE];
+
+    }
 
 }
-
-
-

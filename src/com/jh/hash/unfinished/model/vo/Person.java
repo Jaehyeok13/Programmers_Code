@@ -1,6 +1,6 @@
 package com.jh.hash.unfinished.model.vo;
 
-public class person {
+public class Person {
 	private String name;
 	private int number;
 	
@@ -19,11 +19,11 @@ public class person {
 	public int getNumber() {
 		return number;
 	}
-	public person() {
+	public Person() {
 		super();
 	}
 
-	public person(String name, int number) {
+	public Person(String name, int number) {
 		super();
 		this.name = name;
 		this.number = number;
