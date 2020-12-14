@@ -77,8 +77,8 @@ public class Menu {
 							System.out.println("메뉴 번호를 잘못 입력 하셨습니다. 다시 입력 해주세요.\n");
 					}
 				} catch (Exception e) {
-//					System.out.println("숫자로 다시 입력해주세요.\n");
-				    e.printStackTrace();
+					System.out.println("숫자로 다시 입력해주세요.\n");
+//				    e.printStackTrace();
 				}
 		}
 	}
