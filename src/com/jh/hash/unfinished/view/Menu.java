@@ -76,7 +76,7 @@ public class Menu {
 						default:
 							System.out.println("메뉴 번호를 잘못 입력 하셨습니다. 다시 입력 해주세요.\n");
 					}
-				} catch (Exception e) {
+				} catch (NumberFormatException e) {
 					System.out.println("숫자로 다시 입력해주세요.\n");
 //				    e.printStackTrace();
 				}
@@ -110,7 +110,7 @@ public class Menu {
 				default : System.out.println("잘못 입력 하셨습니다. 다시 입력 해주세요."); break;
 				}
 				
-			}catch(Exception e) {
+			}catch(NumberFormatException e) {
 				System.out.println("숫자로 다시 입력 해주세요.");
 			}
 		}
@@ -177,7 +177,7 @@ public class Menu {
 					case 9: System.out.println("메인으로 돌아갑니다.\n"); key = true; break;
 					default : System.out.println("잘못 입력 하셨습니다. 다시 입력 해주세요.\n");
 				}
-			}catch(Exception e) {
+			}catch(NumberFormatException e) {
 				System.out.println("숫자로 다시 입력 해주세요.");
 			}
 		}
@@ -215,7 +215,7 @@ public class Menu {
 //			}
 //			key = true;
 //		    }
-		} catch (Exception e) {
+		} catch (NumberFormatException e) {
 		    System.out.print("숫자로 다시 입력 해주세요.\n");
 		}
 	    }
@@ -243,7 +243,7 @@ public class Menu {
 			System.out.println("잘못 입력 하셨습니다. Y/N 로 다시 입력 해주세요.");
 			break;
 		    }
-		} catch (Exception e) {
+		} catch (NumberFormatException e) {
 		    System.out.println("Y/N 만 입력 가능 합니다. 다시 입력 해주세요.\n");
 		}
 	    }
