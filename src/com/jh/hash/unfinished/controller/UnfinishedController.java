@@ -23,7 +23,9 @@ public class UnfinishedController {
 	if(exisParticipantNum() < 0) {
 	    for(int i = 0; i < exisParticipantNum(); i++) {
 		for(int j = 0; j < i; j++) {
+			while(num < 10000) {
 		    num = ((int)(Math.random() * 99999) + 1);
+			}
 		    if(p[i].getNumber() == num) {
 			j--;
 			break;
@@ -34,11 +36,11 @@ public class UnfinishedController {
 	    num = (int)(Math.random() * 99999) + 1;
 	}
 	p[exisParticipantNum()] = new Person(name, num);
-	System.out.println(name + "님의 참가 번호는 '" + num +"'입니다.");
+	System.out.println(name + "님의 참가 번호는 '" + num +"'입니다.\n참가자 번호는 참가자 조회,정보 수정, 삭제에 필요한 정보입니다.");
     }
 
     // 참가자 목록 출력
-    public void listParticipant() {
+    public void listParticipantAll() {
 	for (int i = 0; i < exisParticipantNum(); i++) {
 	    System.out.println(p[i].inform());
 	}

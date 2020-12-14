@@ -68,7 +68,7 @@ public class Menu {
 					}
 					switch (num) {
 						case 1: insertParticipant(); break;
-						case 2: listParticipant(); break;
+						case 2: listMenu(); break;
 						case 3: updateParticipant(); break;
 						case 4: deleteParticipant(); break;
 						case 5: presentParticipant();  break;
@@ -86,17 +86,40 @@ public class Menu {
 	//	새 참가자 등록
 	public void insertParticipant() {
 		System.out.println("\n===== 참가자 등록합니다. =====");
-		System.out.print("참가자 이름을 입력 해주세요 : ");
+		System.out.print("참가자명 입력(공백 자동제거) : ");
 		String name = sc.nextLine();
+		name = name.replaceAll("\\s", ""); // 공백을 제거 해준다.
 		uc.insertParticipant(name);
 		System.out.println();
 	}
 
+	public void listMenu() {
+		boolean key = false;
+		while(!key) {
+			try {
+				System.out.println("===== 참가자 조회 =====");
+				System.out.println("1. 참가자명 조회");
+				System.out.println("2. 참가번호 조회");
+				System.out.println("3. 모든 참가자");
+				System.out.println("9. 메뉴로 돌아가기");
+				int num = Integer.parseInt(sc.nextLine());
+				switch(num) {
+				case 1 : key = true; break;
+				case 2 : key = true; break;
+				case 3 : listParticipantAll(); break;
+				default : System.out.println("잘못 입력 하셨습니다. 다시 입력 해주세요."); break;
+				}
+				
+			}catch(Exception e) {
+				System.out.println("숫자로 다시 입력 해주세요.");
+			}
+		}
+	}
 	// 참자가 목록 조회
-	public void listParticipant() {
+	public void listParticipantAll() {
 		if(uc.exisParticipantNum() > 0) {
 			System.out.println("\n===== 참가자 명단 =====");
-			uc.listParticipant();
+			uc.listParticipantAll();
 			System.out.print("====================\n\n");
 		}else {
 			System.out.println("\n등록된 참가자가 없습니다.\n");
@@ -166,11 +189,11 @@ public class Menu {
 	    boolean key = false;
 	    while (!key) {
 		try {
-		    System.out.println("\n===== 참가자 한명 삭제 =====\n0번 메인 메뉴 이동");
+		    System.out.println("\n===== 참가자 한명 삭제 =====\n9번 메인 메뉴 이동");
 		    System.out.print("참가번호 : ");
 		    num = Integer.parseInt(sc.nextLine());
 
-		    if (num == 0) {
+		    if (num == 9) {
 			System.out.println("메인으로 돌아 갑니다.\n\n");
 			key = true;
 			break;
